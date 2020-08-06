@@ -1,0 +1,59 @@
+﻿@using ClassLibrary2
+@model March30HW.Models.AdViewModel
+    <html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        @foreach (Ad a in Model.Ad)
+        {
+        <div class="well">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>@a.Name</h4>
+                </div>
+                <div class="col-md-3 col-md-offset-2">
+                    <h4>@a.Number</h4>
+                </div>
+            </div>
+
+
+            <h4>@a.CreatedDate</h4>
+            <p class="lead">@a.Text</p>
+            @if (Model.UserId.Contains(a.Id))
+            {
+                <form action="/home/delete">
+                    <input type="hidden" name="id" value="@a.Id" />
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            }
+           <!--@foreach (int x in Model.UserId)
+            {
+                if (x == a.Id)
+                {
+                    <form action="/home/delete">
+                        <input type="hidden" name="id" value="@a.Id" />
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+
+                }
+            }-->
+        </div>
+        }
+        <ul class="pager">
+            @if (Model.PreviousPage.HasValue)
+            {
+                <li class="previous">
+                    <a href="/home/home?page=@Model.PreviousPage">&larr; Older</a>
+                </li>
+            }
+            @if (Model.NextPage.HasValue)
+            {
+                <li class="next">
+                    <a href="/home/home?page=@Model.NextPage">Newer &rarr;</a>
+                </li>
+            }
+        </ul>
+    </body>
+    </html>
+
